@@ -1,0 +1,14 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" rx="80" fill="#3b82f6"/>
+  
+  <!-- PE Text -->
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" 
+        font-family="Arial, sans-serif" font-weight="bold" font-size="200" fill="white">
+    PE
+  </text>
+  
+  <!-- Optional: Small prompt icon -->
+  <circle cx="400" cy="400" r="60" fill="white" opacity="0.9"/>
+  <path d="M 370 400 L 390 380 L 410 400 L 390 390 L 380 410 Z" fill="#3b82f6"/>
+</svg>

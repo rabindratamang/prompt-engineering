@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate PWA Icons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .canvas-container {
+            margin: 20px 0;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        canvas {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 10px 10px 10px 0;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        .instructions {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 Generate PWA Icons</h1>
+    
+    <div class="instructions">
+        <strong>Quick Start:</strong>
+        <ol>
+            <li>Click "Download 192x192" and save as <code>icon-192.png</code></li>
+            <li>Click "Download 512x512" and save as <code>icon-512.png</code></li>
+            <li>Move both files to your <code>/public/</code> folder</li>
+            <li>Rebuild your site: <code>npm run build</code></li>
+        </ol>
+    </div>
+
+    <div class="canvas-container">
+        <h3>192x192 Icon</h3>
+        <canvas id="canvas192" width="192" height="192"></canvas>
+        <br>
+        <button onclick="download('canvas192', 'icon-192.png')">Download 192x192</button>
+    </div>
+
+    <div class="canvas-container">
+        <h3>512x512 Icon</h3>
+        <canvas id="canvas512" width="512" height="512"></canvas>
+        <br>
+        <button onclick="download('canvas512', 'icon-512.png')">Download 512x512</button>
+    </div>
+
+    <script>
+        function drawIcon(canvasId, size) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#3b82f6');
+            gradient.addColorStop(1, '#2563eb');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Text
+            ctx.fillStyle = 'white';
+            ctx.font = `bold ${size * 0.35}px Arial, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('PE', size / 2, size / 2);
+            
+            // Small icon accent
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.beginPath();
+            ctx.arc(size * 0.78, size * 0.78, size * 0.12, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Prompt symbol
+            ctx.fillStyle = '#3b82f6';
+            ctx.font = `bold ${size * 0.08}px Arial`;
+            ctx.fillText('>', size * 0.78, size * 0.78);
+        }
+
+        function download(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const url = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = url;
+            link.click();
+        }
+
+        // Draw icons on page load
+        drawIcon('canvas192', 192);
+        drawIcon('canvas512', 512);
+    </script>
+
+    <div class="instructions" style="background: #d1fae5; border-color: #10b981; margin-top: 30px;">
+        <strong>✅ After adding icons:</strong>
+        <ol>
+            <li>Place icons in <code>/public/</code> folder</li>
+            <li>Run <code>npm run build</code></li>
+            <li>Test: <code>cd out && python3 -m http.server 8080</code></li>
+            <li>Open <code>http://localhost:8080</code></li>
+            <li>Check for "Install app" button in browser!</li>
+        </ol>
+    </div>
+</body>
+</html>
